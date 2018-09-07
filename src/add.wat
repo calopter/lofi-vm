@@ -5,3 +5,7 @@
     i32.sub)
   (export "add" (func $add))
 )
+
+;;import console.log
+;;add first two words in memory
+;;log them, verify
