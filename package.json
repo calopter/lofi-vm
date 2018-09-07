@@ -1,0 +1,17 @@
+{
+  "name": "lofi-vm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "wast-loader": "^1.7.5",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
+  },
+  "dependencies": {},
+  "scripts": {
+    "build": "webpack -p",
+    "dev": "webpack-dev-server --hot --inline"
+  }
+}
