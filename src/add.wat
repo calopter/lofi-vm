@@ -1,11 +1,11 @@
 (module
-  (func $add (param $lhs i32) (param $rhs i32) (result i32)
-    get_local $lhs
-    get_local $rhs
-    i32.sub)
-  (export "add" (func $add))
+  (import "console" "log" (func $log (param f32)))
+  (import "env" "buffer" (memory 1))
+  (func (export "log_add")
+    i32.const 0
+    f32.load
+    i32.const 4 
+    f32.load
+    f32.add
+    call $log)
 )
-
-;;import console.log
-;;add first two words in memory
-;;log them, verify

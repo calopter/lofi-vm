@@ -1,5 +1,13 @@
-let importObject = {
-  imports: { imported_func: arg => console.log(arg) }
+let memory = new WebAssembly.Memory({initial: 1, maximum: 1});
+let mem = new Float32Array(memory.buffer);
+
+//mem.forEach((_, i, mem) => mem[i] = Math.random());
+
+mem[0]=40;
+mem[1]=2;
+
+let importObject = { 
+  console: { log: console.log }, env: { buffer: memory }
 };
 
 fetch('add.wasm').then(response =>
@@ -7,19 +15,15 @@ fetch('add.wasm').then(response =>
 ).then(bytes =>
   WebAssembly.instantiate(bytes, importObject)
 ).then(result =>
-  console.log(result.instance.exports.add(2,1))
+  result.instance.exports.log_add()
 );
 
-let memory = new WebAssembly.Memory({initial: 10, maximum: 100});
-let mem = new Uint32Array(memory.buffer);
-
-mem.forEach((_, i, mem) => mem[i] = Math.floor(Math.random() * 1000));
+console.log(mem);
 
 let audioCtx = new window.AudioContext();
 
 let buff = audioCtx.createBuffer(1, mem.length, audioCtx.sampleRate);
-let fmem = Float32Array.from(mem); //scale
-buff.copyToChannel(fmem, 0);
+buff.copyToChannel(mem, 0);
 
 let source = audioCtx.createBufferSource();
 source.buffer = buff;
